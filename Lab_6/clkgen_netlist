@@ -1,0 +1,65 @@
+************************************************************************
+* auCdl Netlist:
+* 
+* Library Name:  VLSI_lib
+* Top Cell Name: clkgen
+* View Name:     schematic
+* Netlisted on:  Oct 30 17:17:36 2023
+************************************************************************
+
+*.BIPOLAR
+*.RESI = 2000 
+*.RESVAL
+*.CAPVAL
+*.DIOPERI
+*.DIOAREA
+*.EQUATION
+*.SCALE METER
+*.MEGA
+.PARAM
+
+
+
+************************************************************************
+* Library Name: VLSI_lib
+* Cell Name:    nand2
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT nand2 A B Vdd Vout Vss
+*.PININFO A:I B:I Vdd:I Vss:I Vout:O
+MM1 net18 B Vss Vss n_18 W=2u L=200.0n
+MM0 Vout A net18 Vss n_18 W=2u L=200.0n
+MM3 Vout B Vdd Vdd p_18 W=3u L=200.0n
+MM2 Vout A Vdd Vdd p_18 W=3u L=200.0n
+.ENDS
+
+************************************************************************
+* Library Name: VLSI_lib
+* Cell Name:    inv
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT inv A Out VDD VSS
+*.PININFO A:I VDD:I VSS:I Out:O
+MM0 Out A VDD VDD p_18 W=3u L=180.00n
+MM1 Out A VSS VSS n_18 W=1u L=180.00n
+.ENDS
+
+************************************************************************
+* Library Name: VLSI_lib
+* Cell Name:    clkgen
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT clkgen Vdd Vss clkout trigger
+*.PININFO Vdd:I Vss:I trigger:I clkout:O
+XI1 trigger clkout Vdd net15 Vss / nand2
+XI2 net15 net14 Vdd Vss / inv
+XI3 net14 net13 Vdd Vss / inv
+XI4 net13 net12 Vdd Vss / inv
+XI5 net12 net11 Vdd Vss / inv
+XI6 net11 net10 Vdd Vss / inv
+XI7 net10 clkout Vdd Vss / inv
+.ENDS
+

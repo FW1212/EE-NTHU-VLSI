@@ -1,0 +1,36 @@
+************************************************************************
+* auCdl Netlist:
+* 
+* Library Name:  323002mylib
+* Top Cell Name: nand2
+* View Name:     schematic
+* Netlisted on:  Oct  4 00:29:16 2023
+************************************************************************
+
+*.BIPOLAR
+*.RESI = 2000 
+*.RESVAL
+*.CAPVAL
+*.DIOPERI
+*.DIOAREA
+*.EQUATION
+*.SCALE METER
+*.MEGA
+.PARAM
+
+
+
+************************************************************************
+* Library Name: 323002mylib
+* Cell Name:    nand2
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT nand2 A B Vdd Vout Vss
+*.PININFO A:I B:I Vdd:I Vss:I Vout:O
+MM1 net18 B Vss Vss n_18 W=2u L=200.0n
+MM0 Vout A net18 Vss n_18 W=2u L=200.0n
+MM3 Vout B Vdd Vdd p_18 W=3u L=200.0n
+MM2 Vout A Vdd Vdd P_18 W=3u L=200.0n
+.ENDS
+

@@ -1,0 +1,80 @@
+************************************************************************
+* auCdl Netlist:
+* 
+* Library Name:  VLSI_lib
+* Top Cell Name: Bclkgen
+* View Name:     schematic
+* Netlisted on:  Oct 30 21:44:34 2023
+************************************************************************
+
+*.BIPOLAR
+*.RESI = 2000 
+*.RESVAL
+*.CAPVAL
+*.DIOPERI
+*.DIOAREA
+*.EQUATION
+*.SCALE METER
+*.MEGA
+.PARAM
+
+
+
+************************************************************************
+* Library Name: VLSI_lib
+* Cell Name:    nand2
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT nand2 A B Vdd Vout Vss
+*.PININFO A:I B:I Vdd:I Vss:I Vout:O
+MM1 net18 B Vss Vss n_18 W=2u L=200.0n
+MM0 Vout A net18 Vss n_18 W=2u L=200.0n
+MM3 Vout B Vdd Vdd p_18 W=3u L=200.0n
+MM2 Vout A Vdd Vdd p_18 W=3u L=200.0n
+.ENDS
+
+************************************************************************
+* Library Name: VLSI_lib
+* Cell Name:    inv
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT inv A Out VDD VSS
+*.PININFO A:I VDD:I VSS:I Out:O
+MM0 Out A VDD VDD p_18 W=3u L=180.00n
+MM1 Out A VSS VSS n_18 W=1u L=180.00n
+.ENDS
+
+************************************************************************
+* Library Name: VLSI_lib
+* Cell Name:    buf
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT buf A Out VDD VSS
+*.PININFO A:I VDD:I VSS:I Out:O
+MM2 net12 A VSS VSS n_18 W=500.0n L=180.00n
+MM4 Out net12 VSS VSS n_18 W=1u L=180.00n
+MM3 Out net12 VDD VDD p_18 W=2.67u L=180.00n
+MM1 net12 A VDD VDD p_18 W=1u L=180.00n
+.ENDS
+
+************************************************************************
+* Library Name: VLSI_lib
+* Cell Name:    Bclkgen
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT Bclkgen Vdd Vss clkout trigger
+*.PININFO Vdd:I Vss:I trigger:I clkout:O
+XI1 trigger net63 Vdd net69 Vss / nand2
+XI2 net69 net68 Vdd Vss / inv
+XI3 net68 net67 Vdd Vss / inv
+XI4 net67 net66 Vdd Vss / inv
+XI5 net66 net65 Vdd Vss / inv
+XI6 net65 net64 Vdd Vss / inv
+XI7 net64 net63 Vdd Vss / inv
+XI0 net63 clkout Vdd Vss / buf
+.ENDS
+

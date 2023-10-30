@@ -1,0 +1,27 @@
+* File: nand2.pex.spi
+* Created: Mon Oct 30 15:27:30 2023
+* Program "Calibre xRC"
+* Version "v2016.4_15.11"
+* 
+.include "nand2.pex.spi.pex"
+.subckt nand2  A VOUT B VSS VDD
+* 
+* VDD	VDD
+* VSS	VSS
+* B	B
+* OUT	OUT
+* A	A
+MM0 N_VOUT_MM0_d N_A_MM0_g N_NET18_MM0_s N_VSS_MM0_b N_18 L=2e-07 W=2e-06
++ AD=9.8e-13 AS=5.1e-13 PD=2.98e-06 PS=5.1e-07
+MM1 N_NET18_MM1_d N_B_MM1_g N_VSS_MM1_s N_VSS_MM0_b N_18 L=2e-07 W=2e-06
++ AD=5.1e-13 AS=9.8e-13 PD=5.1e-07 PS=2.98e-06
+MM2 N_VOUT_MM2_d N_A_MM2_g N_VDD_MM2_s N_VDD_MM2_b P_18 L=2e-07 W=3e-06
++ AD=7.65e-13 AS=1.47e-12 PD=5.1e-07 PS=3.98e-06
+MM3 N_VOUT_MM3_d N_B_MM3_g N_VDD_MM3_s N_VDD_MM2_b P_18 L=2e-07 W=3e-06
++ AD=7.65e-13 AS=1.47e-12 PD=5.1e-07 PS=3.98e-06
+*
+.include "nand2.pex.spi.NAND2.pxi"
+*
+.ends
+*
+*
